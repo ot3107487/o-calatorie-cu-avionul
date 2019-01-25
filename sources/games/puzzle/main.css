@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
+
+/*--------------------
+CSS RESET
+--------------------*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    background-image: url("../../assets/menu-logo/clouds.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/*--------------------
+FONTS
+--------------------*/
+html {
+    font-family: "Bungee Shade", cursive;
+}
+
+
+.backButton{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+/*--------------------
+PUZZLE BLOCK
+--------------------*/
+.puzzle-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0.5em;
+    margin: 0.5em 0.5em 80px;
+}
+
+.puzzle-container__solved-image {
+    transition: all 0.5s;
+}
+
+.puzzle-container__unsolved-image-container {
+    position: relative;
+}
+
+/*--------------------
+HIDDEN DROPZONES FOR THE PUZZLE PIECES
+--------------------*/
+.dropzone {
+    border-radius: 50%;
+    display: flex;
+    height: 150px;
+    justify-content: center;
+    position: absolute;
+    width: 120px;
+}
+
+.drop-01 {
+    margin-left: 224px;
+    margin-top: 137px;
+    top: 0;
+
+}
+
+.drop-02 {
+    margin-left: 367px;
+    margin-top: 211px;
+    top: 0;
+}
+
+.drop-03 {
+    margin-left: 509px;
+    margin-top: 137px;
+    top: 0;
+}
+
+.drop-04 {
+    margin-left: 224px;
+    margin-top: 291px;
+    top: 0;
+}
+
+.drop-05 {
+
+    margin-left: 509px;
+    margin-top: 291px;
+    top: 0;
+}
+
+/*--------------------
+PUZZLE PIECE BLOCK
+--------------------*/
+.puzzle-piece-container {
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+
+}
+
+.puzzle-piece-container__puzzle-piece {
+}
+
+.puzzle-piece-container__puzzle-piece:hover {
+    cursor: pointer;
+}
+
+/*--------------------
+HIDE AND SHOW
+--------------------*/
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+

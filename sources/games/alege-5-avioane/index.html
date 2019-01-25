@@ -1,0 +1,165 @@
+<html>
+<head>
+<style>
+body{
+	background-image: url("../../assets/menu-logo/clouds.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.center{
+	margin-left:250px;
+}
+
+img{
+	height: 200px;
+	width: 250px;
+}
+
+#corect {
+	color : white;
+	font-family : "Comic Sans MS";
+	font-size : 70px;
+	margin-left:20px;
+}
+
+#back{
+	height:90px;
+	width:100px;
+}
+td{
+	border:2px solid white;
+}
+
+td:hover{
+	border:2px solid yellow;
+}
+</style>
+
+<script src="../../jquery.js"></script>
+</head>
+<body>
+<a href="../index.html"><img id="back" src="../../assets/buttons/back.png"></a>
+<span id="corect"></span>
+<div class="center">
+	<table>
+		<tr>
+			<td id="1"></td>
+			<td id="2"></td>
+			<td id="3"></td>
+			<td id="4"></td>
+			<td id="5"></td>
+		</tr>
+		<tr>
+			<td id="6"></td>
+			<td id="7"></td>
+			<td id="8"></td>
+			<td id="9"></td>
+			<td id="10"></td>
+		</tr>
+		
+		<tr>
+			<td id="11"></td>
+			<td id="12"></td>
+			<td id="13"></td>
+			<td id="14"></td>
+			<td id="15"></td>
+		</tr>
+		<tr>
+			<td id="16"></td>
+			<td id="17"></td>
+			<td id="18"></td>
+			<td id="19"></td>
+			<td id="20"></td>
+		</tr>
+	</table>
+	<audio id="narator" style="display:none" controls="controls" preload="auto"></audio>
+	<audio id="mai-incearca" style="display:none" controls="controls" preload="auto">
+		<source src="../../assets/audio/mai-incearca.mp3"></source>
+	</audio>
+	<audio id="felicitari" style="display:none" controls="controls" preload="auto">
+		<source src="../../assets/audio/felicitari.mp3"></source>
+	</audio>
+	<audio id="succes" style="display:none" controls="controls" preload="auto">
+		<source src="../../assets/audio/succes.mp3"></source>
+	</audio>
+	<audio id="back-audio" style="display:none" controls="controls" preload="auto">
+		<source src="../../assets/audio/back-games.mp3"></source>
+	</audio>
+	
+</div>	
+		
+</body>
+</html>
+<script>
+let elice = ["../../assets/alege-5/planes/elice/1.png","../../assets/alege-5/planes/elice/2.png","../../assets/alege-5/planes/elice/3.png","../../assets/alege-5/planes/elice/4.png","../../assets/alege-5/planes/elice/5.png"];
+let deltaplan = ["../../assets/alege-5/planes/deltaplan/1.png","../../assets/alege-5/planes/deltaplan/2.png","../../assets/alege-5/planes/deltaplan/3.png","../../assets/alege-5/planes/deltaplan/4.png","../../assets/alege-5/planes/deltaplan/5.png"];
+let pasageri = ["../../assets/alege-5/planes/pasageri/1.png","../../assets/alege-5/planes/pasageri/2.png","../../assets/alege-5/planes/pasageri/3.png","../../assets/alege-5/planes/pasageri/4.png","../../assets/alege-5/planes/pasageri/5.png"];
+let lupta = ["../../assets/alege-5/planes/lupta/1.png","../../assets/alege-5/planes/lupta/2.png","../../assets/alege-5/planes/lupta/3.png","../../assets/alege-5/planes/lupta/4.png","../../assets/alege-5/planes/lupta/5.png"];
+let mod =["elice","pasageri","deltaplan","lupta"];
+let modSelectat = "";
+let introPlayed = false;
+let corect = 5;
+let sthPlaying = false;
+const shuffleArray = arr => arr
+  .map(a => [Math.random(), a])
+  .sort((a, b) => a[0] - b[0])
+  .map(a => a[1]);
+$(document).ready(function() {
+	$('#corect').html(corect);
+	modSelectat = shuffleArray(mod)[0];
+	const source = `<source src="../../assets/audio/alege-5/narator-${modSelectat}.mp3"></source>`;
+	$('#narator').append(source);
+	$('#narator')[0].play();
+	sthPlaying = true;
+	setTimeout(()=> introPlayed = true,3000);
+	let planes = shuffleArray([...elice,...deltaplan,...lupta,...pasageri]);
+	for(let i = 1; i<= 20; i++){
+		const element = $(`#${i}`);
+		element.html(`<img src=${planes[i-1]}>`);
+		const elClass = planes[i-1].split("/")[5];
+		element.addClass(`${elClass}`);
+		element.click(function(){
+			if(element.attr('visited')){
+				return;
+			} else {
+				element.attr('visited',true);
+			}
+			if(element.attr('class') === modSelectat){
+				element.css('border','3px solid #00ff00');
+				corect = corect - 1;
+				$('#corect').html(corect);
+				if(!sthPlaying){
+				$('#succes')[0].play();
+				sthPlaying = true;
+			}} else {
+				element.css('border','3px solid red');
+				if(!sthPlaying){
+				$('#mai-incearca')[0].play();
+				sthPlaying = true;
+			}}
+			if(corect === 0){
+			sthPlaying = true;
+				setTimeout(()=>{
+				$('#felicitari')[0].play();
+				sthPlaying = true;
+				setTimeout(()=> 
+				location.reload(),5500);},1000);
+			}
+		});
+		$('#back').mouseenter(()=>{ 
+			if(!sthPlaying){ $('#back-audio')[0].play(); sthPlaying = true;}});
+		$('#narator')[0].onended = function() {
+		sthPlaying = false;}; 
+		$('#back-audio')[0].onended = function(){
+			sthPlaying = false;
+		}
+		$('#succes')[0].onended = function(){
+			sthPlaying = false;
+		}
+		$('#mai-incearca')[0].onended = function(){
+			sthPlaying = false;
+		}
+	}
+});
+
+</script>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gaseste 5 diferete</title>
+    <link href="styling/game.css" rel="stylesheet" type="text/css">
+    <script src="../../jquery.js"></script>
+
+
+</head>
+<body>
+<audio id="back-audio" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/back-games.mp3"></source>
+</audio>
+<audio id="succes" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/succes.mp3"></source>
+</audio>
+<audio id="narator" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/gaseste-5-diferente/narator-5-diferente.mp3"></source>
+</audio>
+<audio id="felicitari" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/felicitari.mp3"></source>
+</audio>
+<div class="mainContainer">
+    <a href="../index.html"><img class="backButton" src="../../assets/buttons/back.png"></a>
+    <div class="leftContainer"></div>
+    <div class="rightContainer"></div>
+    <span class="textEvidence"></span>
+
+</div>
+
+<script>
+    let devMode = false;
+    let indexPhoto = 4;
+
+    let diffFound = 0;
+    let textEvidence = "";
+    let lastRandomNumber = -1;
+    let prevLastRandomNumber;
+    let imagesAvailable = 4;
+	let sthPlaying = false;
+
+    $(document).ready(function() {
+		$('#narator')[0].play();
+		sthPlaying = true;
+		$('.backButton').mouseenter(()=> 
+		{if(!sthPlaying) {
+		$('#back-audio')[0].play();
+		sthPlaying = true;
+		}});
+        startGame();
+		$('#narator')[0].onended = function() {
+		sthPlaying = false;}; 
+		$('#back-audio')[0].onended = function() {
+		sthPlaying = false;}; 
+		$('#succes')[0].onended = function() {
+		sthPlaying = false;}; 
+	
+	
+    });
+
+    function startGame() {
+        init();
+        triggerDiff();
+    }
+    function triggerDiff() {
+        const select = $(".diff");
+        select.click(function(e) {
+            var myClass = $(`.${this.className.split(" ")[0]}`);
+            if(!myClass.hasClass("clicked")) {
+                myClass.addClass("clicked");
+                myClass.addClass("borderClass");
+				if(!sthPlaying){
+				$('#succes')[0].play();
+				sthPlaying = true;
+				}
+                updateNrOfDiffsFound();
+            }
+        });
+    }
+
+    function init() {
+        if(!devMode) {
+            indexPhoto = getRandomNumber(0, imagesAvailable);
+        }
+        $(`<img class="imageContainer" src="../../assets/gaseste-5-diferente/image${indexPhoto}.jpg">`).appendTo($('.leftContainer'));
+        $(`<img class="imageContainer" src="../../assets/gaseste-5-diferente/image${indexPhoto}-1.jpg">`).appendTo($('.rightContainer'));
+
+        $(`<div class="diffs-${indexPhoto} abs">
+             <div class="diff1-${indexPhoto} diff"></div>
+                    <div class="diff2-${indexPhoto} diff"></div>
+                    <div class="diff3-${indexPhoto} diff"></div>
+                    <div class="diff4-${indexPhoto} diff"></div>
+                    <div class="diff5-${indexPhoto} diff"></div>
+            </div>`).appendTo($('.mainContainer'));
+
+        diffFound = 0;
+        $(".textEvidence").text(textEvidence + " " + diffFound);
+    }
+
+    function updateNrOfDiffsFound() {
+        diffFound += 1;
+        $(".textEvidence").text(textEvidence + " " + diffFound);
+
+        setTimeout(function() { if(diffFound === 5) {
+			sthPlaying = true;
+			setTimeout(()=>{
+				$('#felicitari')[0].play();
+				setTimeout(()=> 
+				location.reload(),5500);},1000);
+        }}, 100);
+
+
+    }
+
+    function getRandomNumber(min, max) {
+        let random;
+        if(lastRandomNumber === -1) {
+            lastRandomNumber = Math.floor(Math.random() * (max - min)) + min;
+            prevLastRandomNumber = lastRandomNumber;
+            return lastRandomNumber;
+        }
+        do {
+            random = Math.floor(Math.random() * (max - min)) + min;
+        } while (random === lastRandomNumber || random === prevLastRandomNumber);
+        prevLastRandomNumber = lastRandomNumber;
+        lastRandomNumber = random;
+        return random;
+    }
+
+    function restartGame() {
+        $('.leftContainer').empty();
+        $('.rightContainer').empty();
+        $(`.diffs-${indexPhoto}`).remove();
+        startGame();
+    }
+
+</script>
+</body>
+</html>

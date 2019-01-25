@@ -1,0 +1,219 @@
+<html>
+<head>
+<style>
+body{
+	background-image: url("../../assets/menu-logo/clouds.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+img {
+	margin-right:40px;
+	margin-left: 40px;
+}
+.center{
+}
+#ecran{
+	height:100%;
+}
+.plane1{
+	position: fixed;
+	height:120px;
+	width:120px;
+	z-index:6;
+}
+
+.plane2{
+	position: fixed;
+	height:160px;
+	width:160px;
+	z-index:5;
+}
+
+.plane3{
+	position: fixed;
+	height:200px;
+	width:200px;
+	z-index:4;
+}
+
+.plane4{
+	position: fixed;
+	height:230px;
+	width:230px;
+	z-index:3;
+}
+
+.plane5{
+	position: fixed;
+	height:260px;
+	width:260px;
+	z-index:2;
+}
+#back{
+	height:90px;
+	width:100px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+</style>
+<script src="../../jquery.js"></script>
+</head>
+<body>
+<a href="../index.html"><img id="back" src="../../assets/buttons/back.png"></a>
+<div id = "ecran" class="center">
+	<img id="plane1" class="plane1 plane" data-nr = "1" src="../../assets/menu-logo/games.png">
+	<img id="plane2" class="plane2 plane" data-nr = "2" src="../../assets/menu-logo/games.png">
+	<img id="plane3" class="plane3 plane" data-nr = "3" src="../../assets/menu-logo/games.png">
+	<img id="plane4" class="plane4 plane" data-nr = "4" src="../../assets/menu-logo/games.png">
+	<img id="plane5" class="plane5 plane" data-nr = "5" src="../../assets/menu-logo/games.png">
+	
+</div>
+<audio id="back-audio" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/back-games.mp3"></source>
+</audio>
+<audio id="narator" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/gaseste-ordinea/narator-ordine.mp3"></source>
+</audio>
+<audio id="succes" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/succes.mp3"></source>
+</audio>
+<audio id="mai-incearca" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/mai-incearca.mp3"></source>
+</audio>
+<audio id="final" style="display:none" controls="controls" preload="auto">
+    <source src="../../assets/audio/gaseste-ordinea/final-ordine.mp3"></source>
+</audio>
+
+
+</body>
+</html>
+<script>
+
+var planeNr = 0;
+
+var planes = $(".plane");
+
+var h = $("#ecran").height();
+var w = $("#ecran").width();
+
+$('#back').mouseenter(()=>{ 
+			if(!sthPlaying){ $('#back-audio')[0].play();sthPlaying = true;}});
+
+for(var i = 0; i < planes.length; i++){
+	var left = Math.random() * (w - 250);
+	var topa = Math.random() * (h - 250);
+	if(topa < 100 && left < 100){
+		topa += 100;
+	}
+	console.log(topa);
+	console.log(left);
+  $(planes[i]).css("left",left + "px");
+  $(planes[i]).css("top",topa + "px");
+  
+}
+
+$("#plane1").on("click",function(){
+	$(this).css("display","none");
+	planeNr += 1;
+		if(!sthPlaying){
+		$("#succes")[0].play();
+		sthPlaying = true;
+}})
+
+$("#plane2").on("click",function(){
+	if(planeNr != 1){
+		displayPlane();
+		if(!sthPlaying){
+		$("#mai-incearca")[0].play();
+		sthPlaying = true;
+	}}
+	else{
+		$(this).css("display","none");
+		planeNr += 1;
+	if(!sthPlaying){
+	$("#succes")[0].play();
+	sthPlaying = true;
+	}}
+})
+
+
+$("#plane3").on("click",function(){
+	if(planeNr != 2){
+		displayPlane();
+		if(!sthPlaying){
+		$("#mai-incearca")[0].play();
+		sthPlaying = true;
+	}}
+	else{
+		$(this).css("display","none");
+		planeNr += 1;
+	if(!sthPlaying){
+	$("#succes")[0].play();
+	sthPlaying = true;
+	}}
+})
+
+
+$("#plane4").on("click",function(){
+	if(planeNr != 3){
+		displayPlane();
+		if(!sthPlaying){
+		$("#mai-incearca")[0].play();
+		sthPlaying = true;
+	}}
+	else{
+		$(this).css("display","none");
+		planeNr += 1;
+		if(!sthPlaying){
+	$("#succes")[0].play();
+	sthPlaying = true;
+	}}
+})
+
+
+$("#plane5").on("click",function(){
+	if(planeNr != 4){
+		displayPlane();
+		if(!sthPlaying){
+		$("#mai-incearca")[0].play();
+		sthPlaying = true;
+	}}
+	else{
+		done();
+	}
+	})
+
+function done(){
+sthPlaying = true;
+	for(var i = 0; i < planes.length; i++){
+	$(planes[i]).css("display","");
+	  $(planes[i]).css("left", (i * 300 + 100) + "px")
+	  $(planes[i]).css("top", (i * 100 + 50) + "px")
+	}
+	$("#final")[0].play();
+	setTimeout(()=>location.reload(),6000);
+	
+}
+	
+function displayPlane(){
+	for(var i = 0; i < planes.length; i++){
+	  $(planes[i]).css("display","");
+	}
+	planeNr = 0;
+}
+sthPlaying = false;
+
+$(document).ready(function() {
+	sthPlaying = true;
+	$('#narator')[0].play();
+	setTimeout(()=> introPlayed = true,8000);
+	$('#back').mouseenter(()=>{ 
+		if(!sthPlaying){ $('#back-audio')[0].play();sthPlaying = true;}});
+	$('#narator')[0].onended = function () {sthPlaying = false;}
+	$('#back-audio')[0].onended = function () {sthPlaying = false;}
+	$('#mai-incearca')[0].onended = function () {sthPlaying = false;}
+	$('#succes')[0].onended = function () {sthPlaying = false;}
+});
+
+</script>

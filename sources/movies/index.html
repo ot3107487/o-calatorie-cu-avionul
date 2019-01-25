@@ -1,0 +1,107 @@
+<html>
+<head>
+<style>
+body{
+	background-image: url("../assets/menu-logo/clouds.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+video {
+	width:350px;
+	margin-right:40px;
+	margin-left: 40px;
+}
+.center{
+	margin-top:200px;
+	margin-bottom:200px;
+	margin-left:500px;
+	margin-right:500px;
+}
+</style>
+
+<script src="../jquery.js"></script>
+</head>
+<body>
+<div class="center">
+		<video id="film-calatorie" controls>
+			<source src="../assets/video/o-calatorie-cu-avionul.mp4" type="video/mp4">
+  </video>
+
+  <video id="film-istorie" controls>
+			<source src="../assets/video/istoria-avioanelor.mp4" type="video/mp4">
+  </video>
+</div>
+
+<audio id="o-calatorie-cu-avionul" style="display:none" controls="controls" preload="auto">
+				<source src="../assets/audio/meniu-video/o-calatorie.mp3"></source>
+			</audio>
+			
+<audio id="istoria-avioanelor" style="display:none" controls="controls" preload="auto">
+				<source src="../assets/audio/meniu-video/istoria-avioanelor.mp3"></source>
+			</audio>
+</body>
+</html>
+<script>
+var calatorie = $("#o-calatorie-cu-avionul")[0];
+var istorie = $("#istoria-avioanelor")[0];
+var inapoi = $("#inapoi")[0];
+let filmCalatorieRunning = false;
+let filmCalatorieEnded = false;
+let filmIstorieRunning = false;
+let filmIstorieEneded = false;
+let sthPlaying = false;
+$("#film-calatorie")
+	.mouseenter(function() {
+		if(!sthPlaying){
+		calatorie.play();
+		sthPlaying = true;
+		}
+	});
+
+var filmCalatorie = document.getElementById("film-calatorie");
+filmCalatorie.addEventListener("play",function (){
+		calatorie.pause();
+		calatorie.currentTime = 0;
+		istorie.pause();
+		istorie.currentTime = 0;
+		sthPlaying = true;
+	})
+filmCalatorie.addEventListener("ended",function (){
+	sthPlaying = false;
+	filmCalatorieEnded = true;
+	if(filmIstorieEneded){
+		setTimeout(()=>{
+			window.location.href = "../index.html";
+		}, 2000);
+	}
+	})
+	
+var filmIstorie = document.getElementById("film-istorie");
+filmIstorie.addEventListener("play",function (){
+		calatorie.pause();
+		calatorie.currentTime = 0;
+		istorie.pause();
+		istorie.currentTime = 0;
+		sthPlaying = true;
+	})
+filmIstorie.addEventListener("ended",function (){
+		filmIstorieEneded = true;
+		if(filmCalatorieEnded){
+		setTimeout(()=>{
+			window.location.href = "../index.html";
+		}, 2000);
+	}
+	})
+filmCalatorie.onpause =function () {sthPlaying = false;}
+filmIstorie.onpause = function() {sthPlaying = false;}
+
+$("#film-istorie")
+	.mouseenter(function() {
+		if(!sthPlaying){
+		istorie.play();
+		sthPlaying = true;
+	}});
+
+istorie.onended = function () {sthPlaying = false;}
+calatorie.onended = function() {sthPlaying = false;}
+</script>

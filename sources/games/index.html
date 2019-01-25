@@ -1,0 +1,106 @@
+<html>
+<head>
+<style>
+body{
+	background-image: url("../assets/menu-logo/clouds.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.center{
+	margin-left:450px;
+}
+
+img{
+	height: 300px;
+	width: 300px;
+	margin-right:350px;
+}
+
+#corect {
+	color : white;
+	font-family : "Comic Sans MS";
+	font-size : 70px;
+	margin-left:20px;
+}
+
+#back{
+	height:100px;
+	width:100px;
+}
+td{
+	border:2px solid white;
+}
+
+td:hover{
+	border:2px solid yellow;
+}
+</style>
+<script src="../jquery.js"></script>
+</head>
+<body>
+<a href="../index.html"><img id="back" src="../assets/buttons/back.png"></a>
+<div class="center">
+<a href="alege-5-avioane/index.html"><img id="alege-avioanele-corecte" src="../assets/menu-logo/alege-avioanele-corecte.png"></a>
+<a href="gaseste-5-diferente/index.html"><img id="gaseste-diferentele" src="../assets/menu-logo/gaseste-diferentele.png"></a>
+<br><br><br><br>
+<a href="puzzle/index.html"><img id="puzzle" src="../assets/menu-logo/puzzle.png"></a>
+<a href="gaseste-ordinea/index.html"><img id="gaseste-ordinea" src="../assets/menu-logo/gaseste-ordinea.png"></a>
+</div>
+<audio id="back-audio" style="display:none" controls="controls" preload="auto">
+    <source src="../assets/audio/back.mp3"></source>
+</audio>
+<audio id="narator" style="display:none" controls="controls" preload="auto">
+    <source src="../assets/audio/meniu-jocuri/narator-meniu-jocuri.mp3"></source>
+</audio>
+<audio id="alege-avioane" style="display:none" controls="controls" preload="auto">
+    <source src="../assets/audio/meniu-jocuri/alege-avioanele-corecte.mp3"></source>
+</audio>
+<audio id="gaseste-diferentele-audio" style="display:none" controls="controls" preload="auto">
+    <source src="../assets/audio/meniu-jocuri/gaseste-diferentele.mp3"></source>
+</audio>
+<audio id="puzzle-audio" style="display:none" controls="controls" preload="auto">
+    <source src="../assets/audio/meniu-jocuri/puzzle.mp3"></source>
+</audio>
+<audio id="gaseste-ordinea-audio" style="display:none" controls="controls" preload="auto">
+    <source src="../assets/audio/meniu-jocuri/gaseste-ordinea.mp3"></source>
+</audio>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	let somethingIsPlayng = true;
+	$('#narator')[0].play();
+	$('#back').mouseenter(()=>{ 
+		if(!somethingIsPlayng){
+			somethingIsPlayng = true;
+		 $('#back-audio')[0].play();}});
+	$('#alege-avioanele-corecte').mouseenter(()=>{ 
+		if(!somethingIsPlayng){
+			somethingIsPlayng = true;$('#alege-avioane')[0].play();}});
+	$('#puzzle').mouseenter(()=>{ 
+		if(!somethingIsPlayng){
+			somethingIsPlayng = true; $('#puzzle-audio')[0].play();}});
+	$('#gaseste-diferentele').mouseenter(()=>{ 
+		if(!somethingIsPlayng){
+			somethingIsPlayng = true;
+			$('#gaseste-diferentele-audio')[0].play();}});
+	$('#gaseste-ordinea').mouseenter(()=>{ 
+		if(!somethingIsPlayng){
+			somethingIsPlayng = true;$('#gaseste-ordinea-audio')[0].play();}});
+	$('#back-audio')[0].onended = function() {
+		somethingIsPlayng =false;
+	}; 
+	$('#alege-avioane')[0].onended = function() {
+		somethingIsPlayng = false;}; 
+	$('#puzzle-audio')[0].onended = function() {
+		somethingIsPlayng = false;}; 
+	$('#gaseste-diferentele-audio')[0].onended = function() {
+		somethingIsPlayng = false;}; 
+	$('#gaseste-ordinea-audio')[0].onended = function() {
+		somethingIsPlayng = false;}; 
+	$('#narator')[0].onended = function() {
+		somethingIsPlayng = false;}; 
+	
+});
+
+</script>

@@ -1,0 +1,75 @@
+<html>
+<head>
+<style>
+body{
+	background-image: url("assets/menu-logo/clouds.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+img {
+	width:350px;
+	height:350px;
+	margin-right:40px;
+	margin-left: 40px;
+}
+.center{
+	margin-top:200px;
+	margin-bottom:200px;
+	margin-left:500px;
+	margin-right:500px;
+}
+</style>
+<script src="jquery.js"></script>
+</head>
+<body>
+<div class="center">
+	<a href="movies/index.html"><img id="movies" src="assets/menu-logo/movies.png"></a>
+	<a href="games/index.html"><img id="games" src="assets/menu-logo/games.png"></a>
+</div>
+<audio id="avioane" style="display:none" controls="controls" preload="auto">
+				<source src="assets/audio/meniu-principal/invata.mp3"></source>
+			</audio>
+<audio id="jocuri" style="display:none" controls="controls" preload="auto">
+	<source src="assets/audio/meniu-principal/jocuri.mp3"></source>
+	</audio>
+</body>
+</html>
+<script>
+var avioane = $("#avioane")[0];
+var jocuri = $("#jocuri")[0];
+let avioaneEnded = true;
+let jocuriEnded = true;
+jocuri.onended = function() {
+    jocuriEnded = true;
+}; 
+avioane.onended = function() {
+    avioaneEnded = true;
+}; 
+$("#movies")
+	.mouseenter(function() {
+	if(jocuriEnded){
+		avioane.play();
+		avioaneEnded = false;
+	}});
+
+$("#games")
+	.mouseenter(function() {
+		if(avioaneEnded){
+		jocuri.play();
+		jocuriEnded = false;
+		}
+	});
+
+
+var rimAudioAvioane = document.getElementById("avioane"); 
+var rimAudioJocuri = document.getElementById("jocuri"); 
+
+function playRimAvioane() { 
+    rimAudioAvioane.play(); 
+} 
+function playRimJocuri() { 
+    rimAudioJocuri.play(); 
+} 
+item.addEventListener('mouseover', rimAudioAvioane.playRimAvioane, false);
+item.addEventListener('mouseover', rimAudioJocuri.playRimJocuri, false);
+</script>
